@@ -12,15 +12,15 @@ const DicList = (props) => {
         <ListStyle>
             {dic_list.map((list, index) => {
                 return (
-                    <ItemStyle
-                        className='list_item'
-                        key={index}
-                        color={list.completed ? "orange" : "aliceblue"}
-                        onClick={() => {
-                            props.history.push('/detail/'+index);
-                        }}
-                    >
-                        {list.text}
+                    <ItemStyle>
+                        <Item className='list_item' key={index}
+                            onClick={() => { props.history.push('/detail/' + index); }}>
+                            <b>{list.text}</b>
+                            <p>{list.disc}</p>
+                        </Item>
+                        
+                        
+                        
                     </ItemStyle>
                 );
             })
@@ -45,6 +45,14 @@ const ItemStyle = styled.div`
     padding: 16px;
     margin: 8px;
     background-color: #F5F5F5;
+`;
+
+const Item = styled.h3`
+
+`;
+
+const ItemDisc = styled.p`
+
 `;
 
 const AddBtn = styled.button`

@@ -54,8 +54,6 @@ class App extends React.Component {
                         <Route path="/detail/:index" component={Detail} />
                     </Switch>
                 </Container>
-                <input type="text" ref={this.text} />
-                <button onClick={this.addDicList}>추가하기</button>
             </div>
         );
     }
