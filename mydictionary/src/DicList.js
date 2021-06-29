@@ -18,9 +18,6 @@ const DicList = (props) => {
                             <b>{list.text}</b>
                             <p>{list.disc}</p>
                         </Item>
-                        
-                        
-                        
                     </ItemStyle>
                 );
             })

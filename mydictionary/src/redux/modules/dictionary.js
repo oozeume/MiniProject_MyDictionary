@@ -9,25 +9,25 @@ const UPDATE = "dictionary/UPDATE";
 
 const initialState = {
     list: [  
-        { text: '단어이름', disc: '단어뜻' },
+        // { text: '단어이름', disc: '단어뜻' },
     ]
 };
 
 // ActionCreator
-export const loadList = (dictionary) => {
-    return { type: LOAD, dictionary };
+export const loadList = (load_list) => {
+    return { type: LOAD, load_list };
 }
 
-export const addList = (text, disc) => {
-    return { type: ADD, text, disc };
+export const addList = (text, disc, memo) => {
+    return { type: ADD, text, disc, memo };
 }
 
-export const createList = (dictionary) => {
-    return { type: CREATE, dictionary };
+export const createList = (create_list) => {
+    return { type: CREATE, create_list };
 }
 
-export const deleteList = (dictionary) => {
-    return { type: DELETE, dictionary };
+export const deleteList = (delete_list) => {
+    return { type: DELETE, delete_list };
 }
 
 export const updateList = (dictionary) => {
@@ -44,27 +44,27 @@ export default function reducer(state = initialState, action) {
         }
         case "dictionary/ADD": {
             console.log(state, action);
-            const new_dic_list = [...state.list,  { text: action.text, disc: action.disc }];
+            const new_dic_list = [...state.list,  { text: action.text, disc: action.disc, memo: action.memo }];
             return { list: new_dic_list };
         }
 
         case "dictionary/CREATE": {
             console.log(state, action);
-            const new_dic_list = [...state.list, { text: action.dictionary, disc: action.dictionary }];
+            const new_dic_list = [...state.list, { text: action.create_list }];
             return { list: new_dic_list };
         }
         case "dictionary/DELETE":
             const dic_list = state.list.filter((l, index) => {
-                if (index !== action.dictionary) {
+                if (index !== action.delete_list) {
                     return l;
-                }
+                } 
             });
             return { list: dic_list };
 
         case "dictionary/UPDATE": { // 완료로 상태가 바뀐 리스트가 들어가야한다.
             const dic_list = state.list.map((l, index) => {
                 if (index === action.dictionary) {
-                    return { ...l, completed: true };
+                    return { ...l};
                 } else {
                     return l;
                 }

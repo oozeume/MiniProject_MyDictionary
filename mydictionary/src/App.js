@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import DicList from './DicList';
 import DicAdd from './DicAdd';
 import Detail from "./Detail";
+import NotFound from "./NotFound";
 
 import { connect } from 'react-redux';
 
@@ -32,16 +33,8 @@ class App extends React.Component {
         super(props);
 
         this.state = {
-
         };
-        this.text = React.createRef();
     }
-
-        //Ref값 가져와서 연결해줄때 add해주는 함수 만들어줘야겠죠 (input에 text입력하고 추가하기 버튼 눌렀을때)
-        addDicList = () => {
-            const new_item = this.text.current.value; // input에서 value값 가져오면 담아줄 변수를 만들어준다. 
-            this.props.create(new_item);
-        };
 
     render() {
         return (
@@ -52,6 +45,7 @@ class App extends React.Component {
                         <Route path="/" exact render={(props) => (<DicList list={this.state.list} history={this.props.history} />)} />
                         <Route path="/dicadd" component={DicAdd} />
                         <Route path="/detail/:index" component={Detail} />
+                        <Route component={NotFound} />
                     </Switch>
                 </Container>
             </div>
