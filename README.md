@@ -1,2 +1,2 @@
-# MiniProject_MyDictionary
+# MiniProject
 First React MiniProject
