@@ -14,8 +14,11 @@ const DicAdd = (props) => {
     return (
         <div>
             <ListStyle>
+                <span>Word</span>
                 <ItemStyle ref={input_text} placeholder="단어를 입력하세요."></ItemStyle>
+                <span>Description</span>
                 <ItemStyle ref={input_disc} placeholder="뜻을 입력하세요."></ItemStyle>
+                <span>Memo</span>
                 <ItemStyle ref={input_memo} placeholder="메모를 입력하세요."></ItemStyle>
 
                 <button onClick={() => {

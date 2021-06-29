@@ -9,7 +9,7 @@ const UPDATE = "dictionary/UPDATE";
 
 const initialState = {
     list: [  
-        // { text: '단어이름', disc: '단어뜻' },
+        // { text: '단어이름', disc: '단어뜻' , complited: false},
     ]
 };
 
@@ -30,8 +30,8 @@ export const deleteList = (delete_list) => {
     return { type: DELETE, delete_list };
 }
 
-export const updateList = (dictionary) => {
-    return { type: UPDATE, dictionary };
+export const updateList = (update_list) => {
+    return { type: UPDATE, update_list };
 }
 
 
@@ -44,7 +44,7 @@ export default function reducer(state = initialState, action) {
         }
         case "dictionary/ADD": {
             console.log(state, action);
-            const new_dic_list = [...state.list,  { text: action.text, disc: action.disc, memo: action.memo }];
+            const new_dic_list = [...state.list,  { text: action.text, disc: action.disc, memo: action.memo, complited: false }];
             return { list: new_dic_list };
         }
 
@@ -63,8 +63,8 @@ export default function reducer(state = initialState, action) {
 
         case "dictionary/UPDATE": { // 완료로 상태가 바뀐 리스트가 들어가야한다.
             const dic_list = state.list.map((l, index) => {
-                if (index === action.dictionary) {
-                    return { ...l};
+                if (index === action.update_list) {
+                    return { ...l, complited: true};
                 } else {
                     return l;
                 }

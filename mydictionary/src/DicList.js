@@ -5,35 +5,44 @@ import AddIcon from '@material-ui/icons/Add';
 import { useSelector, useDispatch } from 'react-redux';
 
 
+
 const DicList = (props) => {
     const dic_list = useSelector(state => state.dictionary.list);
 
     return (
+        <div>
         <ListStyle>
             {dic_list.map((list, index) => {
                 return (
                     <ItemStyle>
-                        <Item className='list_item' key={index}
+                        <Item className='list_item' 
+                        key={index}
+                        
                             onClick={() => { props.history.push('/detail/' + index); }}>
                             <b>{list.text}</b>
                             <p>{list.disc}</p>
                         </Item>
+                        <ColletBtn 
+                            color={list.complited? "orange" : "#F5F5F5"} 
+                            > 
+                        </ColletBtn>
                     </ItemStyle>
                 );
             })
             }
-            <AddBtn onClick={() => { props.history.push('/dicadd') }} >
+            
+        </ListStyle>
+        <AddBtn onClick={() => { props.history.push('/dicadd') }} >
                 <AddIcon />
             </AddBtn>
-
-        </ListStyle>
+        </div>
     );
 }
 
 const ListStyle = styled.div`
     display: flex;
     flex-direction: column;
-    height: 100%;
+    height: 50vh;
     overflow-x: hidden;
     overflow-y: auto;
 `;
@@ -48,8 +57,11 @@ const Item = styled.h3`
 
 `;
 
-const ItemDisc = styled.p`
-
+const ColletBtn = styled.div`
+    width: 0.5px;
+    padding: 8px;
+    background-color: ${props => props.color};
+    border-radius: 50%;
 `;
 
 const AddBtn = styled.button`
@@ -57,6 +69,13 @@ const AddBtn = styled.button`
     background-color: #3040C4;
     padding: 15px;
     border-radius: 15px;
+    position : sticky; 
+	top : 0;
+    right: 50px;
+    &:hover{
+        cursor: pointer;
+    }
+    
 `;
 
 export default DicList;
