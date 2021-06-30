@@ -1,6 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { faArrowLeft, faCheck } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import { useDispatch } from 'react-redux';
 import { addListFB } from './redux/modules/dictionary';
 
@@ -11,7 +14,7 @@ const DicAdd = (props) => {
   const input_memo = React.useRef(null);
 
   return (
-    <div>
+    <Parent>
       <ListStyle>
         <InputText>Word</InputText>
         <ItemStyle ref={input_text} placeholder="단어를 입력하세요."></ItemStyle>
@@ -25,32 +28,40 @@ const DicAdd = (props) => {
         ></ItemStyle>
       </ListStyle>
 
-      <button onClick={() => {
+      <AddBtn onClick={() => {
         if (input_text.current.value === "" || input_disc.current.value === "") {
           alert('단어와 뜻을 모두 입력하세요.');
         } else {
           dispatch(addListFB(input_text.current.value, input_disc.current.value, input_memo.current.value));
           props.history.push("/");
         }
-      }}>작성완료</button>
+      }}><FontAwesomeIcon icon={faCheck} color="#fff" />
+      </AddBtn>
 
-      <button onClick={() => {
+      <GoBackBtn onClick={() => {
         props.history.goBack();
-      }}>뒤로가기</button>
-    </div>
+      }}><FontAwesomeIcon icon={faArrowLeft} color="#fff" />
+      </GoBackBtn>
+    </Parent>
   );
 }
 
+const Parent = styled.div`
+height: 400px;
+max-height: 60vh;
+postiion : absolute;
+`;
+
 const ListStyle = styled.div`
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    overflow-x: hidden;
-    overflow-y: auto;
-    background-color: #F5F5F5;
-    box-sizing: border-box;
-    padding: 16px;
-    border-radius: 18px;
+display: flex;
+flex-direction: column;
+height: 100%;
+overflow-x: hidden;
+overflow-y: auto;
+background-color: #F5F5F5;
+box-sizing: border-box;
+border-radius: 18px;
+padding: 18px 16px 80px 20px;
 `;
 
 const InputText = styled.span`
@@ -66,6 +77,34 @@ const ItemStyle = styled.input`
     border-style: none;
     margin-bottom: 17px;
     border-radius: 8px;
+`;
+
+const AddBtn = styled.button`
+border-style: none;
+background-color: #3040C4;
+height: 45px;
+width: 45px;
+border-radius: 12px;
+&:hover{
+  cursor: pointer;
+  }
+position: absolute;
+bottom: 16px;
+right : 16px;
+`;
+
+const GoBackBtn = styled.button`
+border-style: none;
+background-color: #9CA5EF;
+height: 45px;
+width: 45px;
+border-radius: 12px;
+&:hover{
+  cursor: pointer;
+  }
+position: absolute;
+bottom: 16px;
+left : 16px;
 `;
 
 export default DicAdd;

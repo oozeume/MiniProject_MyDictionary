@@ -4,7 +4,6 @@ import { Route, Switch } from "react-router-dom";
 import { withRouter } from "react-router";
 
 import "./dicstyle.css";
-
 import styled from 'styled-components';
 import DicList from './DicList';
 import DicAdd from './DicAdd';
@@ -12,9 +11,7 @@ import Detail from "./Detail";
 import NotFound from "./NotFound";
 
 import { connect } from 'react-redux';
-
 import { loadListFB } from './redux/modules/dictionary';
-
 import { firestore } from "./firebase"; // firestore 가져오기
 
 // 스토어가 가진 상태값을 props로 받아오기위한 함수
@@ -27,10 +24,6 @@ const mapDispatchToProps = (dispatch) => ({
   load: () => {
     dispatch(loadListFB());
   },
-  // create: (new_item) => {
-  //   console.log(new_item);
-  //   dispatch(addListFB(new_item));
-  // }
 });
 
 
@@ -46,13 +39,11 @@ class App extends React.Component {
     this.props.load();
   }
 
-
-
   render() {
     return (
-      <div>
+      <wrapper>
         <Container>
-          <Title>DICTIONARY</Title>
+          <Title>DICTIONARY</Title> {/* <Spinner /> */}
           <Switch>
             <Route path="/" exact render={(props) => (<DicList list={this.state.list} history={this.props.history} />)} />
             <Route path="/dicadd" component={DicAdd} />
@@ -60,25 +51,33 @@ class App extends React.Component {
             <Route component={NotFound} />
           </Switch>
         </Container>
-      </div>
+      </wrapper>
     );
   }
 }
 
+const wrapper = styled.div`
+
+`;
+
 const Container = styled.div`
-    max-width: 350px;
-    min-height: 60vh;
-    background-color: #fff;
-    padding: 16px;
-    border-radius: 5px;
-    // border: 1px solid #ddd;
+max-width: 350px;
+min-height: 60vh;
+background-color: #fff;
+padding: 16px;
+border-radius: 5px;
+
+position: relative;
+display: flex;
+flex-direction: column;
+margin: auto auto;
 `;
 
 const Title = styled.h1`
     text-align: center;
     margin: 0 0 11px 0;
-    font-size: 28px;
-    line-height : 1.5333333333;
+    font-size: 29px;
+    line-height : 1.4333333333;
     letter-spacing: 0.08em;
     color: #fff;
     background-color: #3040C4;

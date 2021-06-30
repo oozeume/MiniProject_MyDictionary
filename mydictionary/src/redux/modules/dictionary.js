@@ -15,7 +15,6 @@ const initialState = {
   list: [
     // { text: '단어이름', disc: '단어뜻' , complited: false},
   ],
-  
 };
 
 // ActionCreator
