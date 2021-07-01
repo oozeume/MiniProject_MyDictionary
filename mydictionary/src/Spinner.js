@@ -1,26 +1,34 @@
 import React from "react";
+import styled from 'styled-components';
 
-import { faTimes, faArrowLeft, faSpinner, faPlus, faChevronUp, faCheck, faBookmark, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Spinner = (props) => {
 
   return (
-    <div className="navibar">
-      <FontAwesomeIcon icon={faSpinner} />
-      <FontAwesomeIcon icon={faPlus} />
-      <FontAwesomeIcon icon={faChevronUp} />
-      <FontAwesomeIcon icon={faCheck} />
-      <FontAwesomeIcon icon={faBookmark} />
-      <FontAwesomeIcon icon={faTrashAlt} />
-      <FontAwesomeIcon icon={faArrowLeft} />
-      <FontAwesomeIcon icon={faTimes} />
-
-
-    </div>
+    <Outter>
+      <ElementBox>
+      <FontAwesomeIcon icon={faSpinner} color="#3040C4" size="3x" spin={true} />
+      </ElementBox>
+    </Outter>
   );
 }
 
+const ElementBox = styled.div`
+height: 45px;
+width: 45px;
+`;
 
+const Outter = styled.div`
+height: 600px;
+max-height: 60vh;
+max-width: 350px;
+
+margin: auto auto;
+display: flex;
+align-items: center;
+justify-content: center;
+`;
 
 export default Spinner;

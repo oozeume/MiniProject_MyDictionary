@@ -7,6 +7,7 @@ const LOAD = "dictionary/LOAD";
 const ADD = "dictionary/ADD"; // 단어 생성 및 리스트에 추가
 const DELETE = "dictionary/DELETE";
 const UPDATE = "dictionary/UPDATE";
+const LOADED = "dictionary/LOADED";
 
 
 // InitialState 초기값
@@ -34,6 +35,10 @@ export const updateList = (update_list) => {
   return { type: UPDATE, update_list };
 }
 
+export const isLoaded = (loaded) => {
+  return { type: LOADED, loaded };
+}
+
 export const loadListFB = () => {
   return function (dispatch) {
     dictionary_db.get().then((docs) => {
@@ -56,6 +61,9 @@ export const loadListFB = () => {
 
 export const addListFB = (text, disc, memo) => {
   return function (dispatch) {
+    
+    dispatch(isLoaded(false));
+
     let dic_data = { text: text, disc: disc, memo: memo, complited: false };
 
     dictionary_db.add(dic_data).then((docRef) => {
@@ -63,6 +71,8 @@ export const addListFB = (text, disc, memo) => {
 
       console.log(dic_data);
       dispatch(addList(dic_data));
+      dispatch(isLoaded(true));
+
     }).catch((error) => {
       window.alert('오류가 났네요! 나중에 다시 시도해주세요!');
     });
@@ -71,17 +81,21 @@ export const addListFB = (text, disc, memo) => {
 
 export const updateListFB = (index) => {
   return function (dispatch, getState) {
+
+    dispatch(isLoaded(false));
+
     const before_dic_data = getState().dictionary.list[index];
     console.log(before_dic_data);
 
     let updated_dic_data = { ...before_dic_data, complited: true };
 
-    if(!updated_dic_data.id){
+    if (!updated_dic_data.id) {
       return;
     }
 
     dictionary_db.doc(before_dic_data.id).update(updated_dic_data).then(docRef => {
       dispatch(updateList(index));
+      dispatch(isLoaded(true));
     }).catch(error => {
       console.log(error);
     });
@@ -90,14 +104,19 @@ export const updateListFB = (index) => {
 
 export const deleteListFB = (index) => {
   return function (dispatch, getState) {
+
+    dispatch(isLoaded(false));
+
     const before_dic_data = getState().dictionary.list[index];
 
-    if(!before_dic_data.id){
+    if (!before_dic_data.id) {
       return;
     }
 
     dictionary_db.doc(before_dic_data.id).delete().then(docRef => {
       dispatch(deleteList(index));
+      dispatch(isLoaded(true));
+
     }).catch(error => {
       console.log(error);
     });
@@ -139,6 +158,10 @@ export default function reducer(state = initialState, action) {
         }
       });
       return { list: dic_list };
+    }
+
+    case "dictionary/LOADED": {
+      return {...state, is_loaded: action.loaded};
     }
 
     default:

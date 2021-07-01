@@ -30,7 +30,7 @@ const DicList = (props) => {
                     lineHeight: '0.8em',
                   }}>{list.text}</h1>
                   <ColletBtn
-                    color={list.complited ? "orange" : "#F5F5F5"}
+                    color={list.complited ? "#FFCE20" : "#F5F5F5"}
                   >
                   </ColletBtn>
                 </TextContainer>
@@ -51,14 +51,15 @@ const DicList = (props) => {
       </ListStyle>
       <AddBtn onClick={() => { props.history.push('/dicadd') }} >
         <FontAwesomeIcon icon={faPlus} color="#fff" size="1x" />
-
       </AddBtn>
     </Parent>
   );
 }
 
 const Parent = styled.div`
-position: relative;
+height: 600px;
+max-height: 60vh;
+postiion : absolute;
 `;
 
 const ListStyle = styled.div`
@@ -66,8 +67,8 @@ display: flex;
 flex-direction: column;
 overflow-x: hidden;
 overflow-y: auto;
-height: 520px;
-max-height: 60vh;
+height: 600px;
+max-height: 60vh; // 여기부분때문에 망가짐 ..
 postiion : relative;
 
 -ms-overflow-style: none;
@@ -82,7 +83,9 @@ padding: 27px 20px;
 background-color: #F5F5F5;
 border-radius: 18px;
 margin-bottom: 11px;
-
+&:hover{
+  cursor: pointer;
+  }
 `;
 
 const Item = styled.div`
@@ -95,12 +98,9 @@ justify-content: space-between;
 align-items: center;
 `;
 
-
-
 const ColletBtn = styled.div`
-width: 0.1px;
-height: 0.1px;
-padding: 5px;
+width: 10px;
+height: 10px;
 background-color: ${props => props.color};
 border-radius: 50%;
 `;
@@ -113,10 +113,17 @@ width: 45px;
 border-radius: 12px;
 &:hover{
   cursor: pointer;
+  opacity: 0.8;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.05), 0px 1px 3px rgba(0, 0, 0, 0.05),
+  inset 0px 1px 0px rgba(255, 255, 255, 0.1);
+transition: background-color 100ms ease-in, box-shadow 100ms ease-in;
   }
 position: absolute;
-bottom: 0px;
-right : 0px;
+bottom: 16px;
+right : 16px;
 `;
+
+
+
 
 export default DicList;
