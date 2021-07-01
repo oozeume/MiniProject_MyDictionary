@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import styled from 'styled-components';
 import Spinner from "./Spinner";
@@ -15,7 +15,7 @@ const DicAdd = (props) => {
   const input_disc = React.useRef(null);
   const input_memo = React.useRef(null);
   const is_loaded = useSelector(state => state.dictionary.is_loaded);
-
+  
   return (
     <Parent>
       {!is_loaded ? (<Spinner />) : (
@@ -92,6 +92,7 @@ const ItemStyle = styled.input`
     margin-bottom: 17px;
     border-radius: 8px;
 `;
+
 
 const AddBtn = styled.button`
 border-style: none;
