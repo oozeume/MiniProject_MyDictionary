@@ -41,6 +41,8 @@ export const isLoaded = (loaded) => {
 
 export const loadListFB = () => {
   return function (dispatch) {
+    dispatch(isLoaded(false));
+
     dictionary_db.get().then((docs) => {
       let dic_data = [];
       docs.forEach((doc) => {
@@ -55,6 +57,8 @@ export const loadListFB = () => {
 
       console.log(dic_data);
       dispatch(loadList(dic_data));
+      dispatch(isLoaded(true));
+
     });
   };
 };
